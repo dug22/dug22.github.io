@@ -222,7 +222,7 @@ In order to process phrases uniformly, we must find the maximum length of any ph
 Having the max length ensures none of our data is truncated while regulating input dimensions.
 </p>
   <ul>
-    <li><b>"pennies are really shiny"</b> has the most characters compared to the other paraphras in our dataset with a character count of 24.</li>
+    <li><b>"pennies are really shiny"</b> has the most characters compared to the other paraphrases in our dataset with a character count of 24.</li>
   </ul>
 
 
@@ -309,12 +309,12 @@ We'll train our x and y data for 70 epochs, with a batchsize of 2, and verbose i
 model.fit(X, y, epochs=70, batch_size=2, verbose=1)
 ~~~
 
-After training, our RNN model should come out to be 98.75% accurate 
+After training, our RNN model should come out to be 98.75% accurate .
 
 ## Evaluating The RNN Model
 
 <p align="justify">
-We evaluated and visualized the model's capability of predicting and generating the next set of characters without any problems. The model successfully learned to predict the next character in phrases demonstrating the RNN's ability to handle sequential patterns.
+We evaluated and visualized the model's capability of predicting and generating the next set of characters without any problems. The model effectively demonstrated its ability to handle sequential patterns by accurately predicting the next character in phrases.
 </p>
 
 **Predicting Printed Result**
@@ -392,7 +392,7 @@ plot_generated_text(steps, chars) #plot the generated text
   <img src="https://github.com/dug22/Text-Generation-Using-an-RNN-Model/raw/main/images/text_generation_graph.png?raw=true">
 </p>
 
-It seems our RNN model predicted the right text **pennies are really shiny** when our starting phrase was **pen**
+It looks like our RNN model predicted the right text **pennies are really shiny** when our starting word was **pen**.
 
 ## Conclusion
 
