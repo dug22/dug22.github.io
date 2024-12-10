@@ -37,7 +37,7 @@ missing word by considering the earlier part of the sentence. Instead of focusin
     <img src="https://camo.githubusercontent.com/0c8708d6d219e7a52a0dc3044b66ea03cb1738167aa6d1eaaccd5cd2a5f9f8e4/68747470733a2f2f656e637279707465642d74626e302e677374617469632e636f6d2f696d616765733f713d74626e3a414e643947635462336d35436577796e66624336354b4e626a6d4f643044306551346942724e43326e676f7a4e5f325a3469304976392d4762432d486c35526c466d5a6a325939565a793026757371703d434155" alt="Your Image" style="margin: 20px;">
 </p>
 
-* Now when it comes to unfolding this RNN it would look something like this:</li>
+* Now when it comes to unfolding this RNN it would look something like this:
 
 <p align="right">
 <img src="https://camo.githubusercontent.com/f5d3e18f7b294903a87445539e268b8cbdfe2103f1355e4ba9f69e00af42944b/68747470733a2f2f6d69726f2e6d656469756d2e636f6d2f76322f726573697a653a6669743a313430302f302a63314c396a6a6373415361676b5f48752e706e67">
