@@ -17,7 +17,7 @@ minimal_mistakes_skin    : "contrast" # "air", "aqua", "contrast", "dark", "dirt
 # Site Settings
 locale                   : "en-US"
 rtl                      : # true, false (default) # turns direction of the page into right to left for RTL languages
-title                    : "dug22's Data Science Blogging Website"
+title                    : "dug22's Data Science Blog"
 title_separator          : "-"
 subtitle                 : # site tagline that appears below site title in masthead
 name                     : "Douglas"
@@ -115,7 +115,7 @@ analytics:
 author:
   name             : "Douglas"
   avatar           : "/assets/images/avatar.png" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio              : "Hello! My name is Douglas, and I am a Data Science graduate with a strong passion for software development, machine learning, database management, and data visualization. I am constantly exploring new technologies and techniques to solve complex problems and improve efficiency."
+  bio              : "Super passionate about Data Science and Software Engineering"
   location         : "U.S"
   email            :
   links:
