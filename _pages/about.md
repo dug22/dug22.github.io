@@ -11,7 +11,7 @@ A Data Science Research and Development Blog:
 </p>
 
 <center>
-<img src="https://github.com/dug22/dug22.github.io/blob/master/assets/images/avatar.png?raw=true" style="width: 75%;">
+<img src="https://github.com/dug22/dug22.github.io/blob/master/assets/images/avatar.png?raw=true" style="width: 100%;">
 </center>
 
 
