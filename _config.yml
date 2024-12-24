@@ -113,10 +113,10 @@ analytics:
 
 # Site Author
 author:
-  name             : "Your Name"
+  name             : "Douglas"
   avatar           : # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio              : "I am an **amazing** person."
-  location         : "Somewhere"
+  bio              : "Hello! My name is Douglas, and I am a Data Science graduate with a strong passion for software development, machine learning, database management, and data visualization. I am constantly exploring new technologies and techniques to solve complex problems and improve efficiency."
+  location         : "U.S"
   email            :
   links:
     - label: "Email"
