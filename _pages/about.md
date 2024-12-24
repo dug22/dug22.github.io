@@ -11,10 +11,7 @@ A Data Science Research and Development Blog:
 </p>
 
 <center>
-  <img src="https://github.com/dug22/dug22.github.io/blob/master/assets/images/avatar.png?raw=true" 
-       width="200" 
-       height="250" 
-       style="border-radius: 50%; border: 5px solid gold; padding: 5px; object-fit: cover;">
+<img src="https://github.com/dug22/dug22.github.io/blob/master/assets/images/avatar.png?raw=true" style="width: 75%;">
 </center>
 
 
