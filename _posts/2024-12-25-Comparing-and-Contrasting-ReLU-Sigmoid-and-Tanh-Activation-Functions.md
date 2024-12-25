@@ -15,13 +15,17 @@ Activation functions play a very important role in deep learning because they de
 </p>
 
 # **What is an Activation Function?**
+
+<p align= "justify">
 An activation function is a mathematical equation that determines the output of a neuron in a neural network based on its input. Without action functions, neural networks would be limited to modeling only linear relationships between inputs and outputs. 
 Selecting the appropriate activation function is essential for training neural networks, ensuring they generalize well and produce accurate predictions. There are a lot of activation functions to choose from, but its essential for the user to choose the right one to use 
 for a given neural network.
+</p>
 
-<p align= "justify">
   
 # **ReLU**
+
+<p align= "justify">
 ReLU or Rectified Linear Unit, operates by outputting the input directly if the input is greater than or equal to
 zero, and ouputting 0 if the input is less than zero. The given formula for ReLU is defined as:
 
