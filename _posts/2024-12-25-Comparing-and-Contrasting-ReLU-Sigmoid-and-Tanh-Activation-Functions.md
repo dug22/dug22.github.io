@@ -25,13 +25,11 @@ for a given neural network.
   
 # **ReLU**
 
-<p align= "justify">
 ReLU or Rectified Linear Unit, operates by outputting the input directly if the input is greater than or equal to
 zero, and ouputting 0 if the input is less than zero. The given formula for ReLU is defined as:
 
-f(x) = max(0,x)
-
-* x resembles the input value
+* f(x) = max(0,x)
+  * x resembles the input value
 
 **Advantages of ReLU**
 * ReLU mitigates the vanishing gradient problem. For positive inputs, its gradient is constant.
@@ -40,7 +38,6 @@ f(x) = max(0,x)
 **Disadvantages of ReLU**
 * The dying ReLU problem can occur. This problem occurs when a ReLU neuron consistently receives negative inputs during training, and consistently outputting zero.
 * Unbounded outputs can arise when ReLU activations produce very large values, potentially leading to exploding gradients. 
-</p>
 
 Here is a simple ReLU activation function plot using Python:
 
@@ -70,14 +67,12 @@ fig.show()
 ![](https://i.imgur.com/PPUOuim.png)
 
 # **Sigmoid**
-<p align="justify">
 A sigmoid is a mathematical curve that transforms input values into an output ranging between 0 and 1, 
 characterized by its distinct S shaped graph. The given formula for sigmoid is defined as:
 
-σ ( x ) = 1 1 + e − x 
-
-* x resembles the input value.
-* e is Euler's number which equals 2.71828.
+* σ ( x ) = 1 1 + e − x 
+  * x resembles the input value.
+  * e is Euler's number which equals 2.71828.
 
 **Advantages of Sigmoid**
 * It gives a smooth gradient that prevents jumps in output values.
@@ -89,7 +84,6 @@ characterized by its distinct S shaped graph. The given formula for sigmoid is d
   * The gradient of the sigmoid function can become very small due to large positive or negative input values, which could slow down the learning process for our neural network.
 * Non zero-centered ouput.
   * The output of the sigmoid functions ranges from 0 to 1, meaning not zero centered, which can lead to inefficient gradient updates in optimization.
-</p>
 
 Here is a simple sigmoid activation function plot using Python:
 
@@ -119,7 +113,6 @@ fig.show()
 ![](https://i.imgur.com/H1gW7aH.png)
 
 # **Tahn (hyperbolic tangent)**
-<p align="justify">
 The tahn function outputs values in the range of -1 to +1, making it more effective at handling negative values compared to the sigmoid function, which ranges from 0 to 1. This property helps in centering data around zero, which can accelerate convergence during optimization. The given formula for tahn can be defined as:  
 
 tahn(x) = (e^x - e^-x) / (e^x + e^-x)
