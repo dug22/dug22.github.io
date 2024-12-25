@@ -29,9 +29,8 @@ for a given neural network.
 ReLU or Rectified Linear Unit, operates by outputting the input directly if the input is greater than or equal to
 zero, and ouputting 0 if the input is less than zero. The given formula for ReLU is defined as:
 
-$$
-f(x) = \max(0, x)
-$$
+f(x) = max(0,x)
+
 * x resembles the input value
 
 **Advantages of ReLU**
@@ -75,9 +74,7 @@ fig.show()
 A sigmoid is a mathematical curve that transforms input values into an output ranging between 0 and 1, 
 characterized by its distinct S shaped graph. The given formula for sigmoid is defined as:
 
-$$
-\sigma(x) = \frac{1}{1 + e^{-x}}
-$$
+σ ( x ) = 1 1 + e − x 
 
 * x resembles the input value.
 * e is Euler's number which equals 2.71828.
@@ -124,9 +121,9 @@ fig.show()
 # **Tahn (hyperbolic tangent)**
 <p align="justify">
 The tahn function outputs values in the range of -1 to +1, making it more effective at handling negative values compared to the sigmoid function, which ranges from 0 to 1. This property helps in centering data around zero, which can accelerate convergence during optimization. The given formula for tahn can be defined as:  
-$$
-\tanh(x) = \frac{e^x - e^{-x}}{e^x + e^{-x}}
-$$
+
+tahn(x) = (e^x - e^-x) / (e^x + e^-x)
+
 * x represents the given input
 * The numerator makes tahn(x) positive or negative depending on the input (x).
 * The denominator scales the result, ensuring the output is always within the range -1 to 1.
