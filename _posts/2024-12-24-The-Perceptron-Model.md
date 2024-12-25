@@ -40,7 +40,7 @@ In the example above, we are presented with two scatter plots. The first scatter
 # **What is the Step Function?**
 <p align="justify">
 In machine learning, a "step function" is a simple activation function used in neural networks. It outputs either 0 or 1 based on whether the input value is below or above a specified threshold or bias. After calculating the sum of the corresponding products, 
-this sum is passed through the step function to determine the outcome. If the sum exceeds the chosen threshold or bias, the outcome is classified as 1; otherwise, it is classified as 0. Let's assume our bias is 0.5 for the rest of the article.
+this sum is passed through the step function to determine the outcome. If the sum exceeds the chosen threshold or bias, the outcome is classified as 1; otherwise, it is classified as 0. Let's assume our bias is 0.5 for the example below.
 </p>
 
 ![](https://i.imgur.com/FXBan6z.png)
