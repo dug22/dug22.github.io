@@ -1,5 +1,5 @@
 ---
-title:  "ReLU vs Sigmoid vs Tahn"
+title:  "Comparing and Contrasting ReLU Sigmoid and Tanh Activation Functions"
 categories:
   - machine learning
 tags:
