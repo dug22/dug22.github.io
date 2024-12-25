@@ -219,9 +219,18 @@ The following code creates a simple pie chart that illustrates the number of cor
 
 ![](https://i.imgur.com/d70zmX0.png)
 
-# Conclusion
+# **Conclusion**
 <p align="justify">
 The perceptron is a fundamental block in machine learning, but it has its limitations. The perceptron is mainly used for classification and linearly separable tasks only. Despite the perceptron's limitations, the perceptron has played an important role in the evolution of neural networks, paving the way for models like multi-layer perceptrons 
 and deep learning architectures. The perceptron remains as a valuable tool for understanding the basic of supervised learning and binary classification. 
 </p>
 
+# **References**
+* Sheldon Robert. What is a perceptron? https://www.techtarget.com/whatis/definition/perceptron
+
+* Melanie Lofkowitz. Professor's 'perceptron' paved the way for ai - 60 years too soon. 2019. https://news.cornell.edu/stories/2019/09/professors-perceptron-paved-way-ai-60-years-too-soon
+
+* Jean-Christophe B. Loiseau. Rosenblatt’s perceptron, the first modern neural network. 2019 https://towardsdatascience.com/rosenblatts-perceptron-the-very-first-neural-network-37a3ec09038a
+
+# **GitHub Repository**
+You can find the code for this exercise [Here](https://github.com/dug22/datascience-blog-exercises/tree/main/1.The%20Perceptron%20Model) 
