@@ -26,7 +26,7 @@ to get two possible outcomes.
 </p>
 
 # **Graphing Rosenblatt's Perceptron**
-A single perceptron is known to follow a linear patter. 
+A single perceptron is known to follow a linear pattern. 
 
 Please refere to the two scatter plots below:
 
