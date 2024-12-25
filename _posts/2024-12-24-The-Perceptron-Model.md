@@ -50,6 +50,7 @@ The table below contains three input values, three corresponding weights, and th
 
 <center><img src="https://i.imgur.com/RrHiz70.png"></center>
 
+
 <p align="justify">
 The inputs, assigned weights, and the products of x×wx×w are used in the model illustrated below. The calculated sum is 0.31, and with a bias of 0.5, the outcome will be 0. The diagram below demonstrates how the entire model would appear when everything is combined.
 </p>
