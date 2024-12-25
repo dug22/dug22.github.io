@@ -8,7 +8,7 @@ tags:
   - python
 ---
 
-In this article, we’ll explore the fundamentals of the perceptron and walk through the process of creating and training our own perceptron model from scratch using Python.
+In this article, we’ll explore the fundamentals of the perceptron model and walk through the process of creating and training our own perceptron model from scratch using Python.
 
 # **Introduction**
 
