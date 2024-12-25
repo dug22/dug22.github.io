@@ -33,12 +33,17 @@ Please refere to the two scatter plots below:
 
 ![Linear vs Non-Linear](https://i.imgur.com/j47Lgw9.png)
 
+<p align="justify">
 In the example above, we are presented with two scatter plots. The first scatter plot follows a linear pattern, while the second scatter plot follows a non-linear pattern. Applying a single perceptron to the first scatter plot works because both outcomes (the green and blue dots) can be separated by a best-fitting line.
+
 However, applying a single perceptron to the second scatter plot does not work, as the outcomes are clustered in a way that no line can separate the green and blue dots.
+</p>
 
 # **What is the Step Function**
+<p align="justify">
 In machine learning, a "step function" is a simple activation function used in neural networks. It outputs either 0 or 1 based on whether the input value is below or above a specified threshold or bias. After calculating the sum of the corresponding products, 
 this sum is passed through the step function to determine the outcome. If the sum exceeds the chosen threshold or bias, the outcome is classified as 1; otherwise, it is classified as 0. Let's assume our bias is 0.5 for the rest of the article.
+</p>
 
 ![](https://i.imgur.com/FXBan6z.png)
 
@@ -47,15 +52,20 @@ The table below contains three input values, three corresponding weights, and th
 
 ![Table I](https://i.imgur.com/RrHiz70.png)
 
+<p align="justify">
 The inputs, assigned weights, and the products of x×wx×w are used in the model illustrated below. The calculated sum is 0.31, and with a bias of 0.5, the outcome will be 0. The diagram below demonstrates how the entire model would appear when everything is combined.
+</p>
 
 ![](https://i.imgur.com/XSxc4Fc.png)
 
-By the way on how the model was drawn out, we took our input values and their assigned weights, and multiplied them together to find their products. The sum of the corresponding products came out to be 0.31. Our sum was then passed into the step function. We know 0.31 is not greater than our assigned bias (0.5), which means the output for this model
-is 0. The weights can always be readjusted to get a different output. 
+<p align="justify">
+By the way on how the model was drawn out, we took our input values and their assigned weights, and multiplied them together to find their products. The sum of the corresponding products came out to be 0.31. Our sum was then passed into the step function. We know 0.31 is not greater than our assigned bias (0.5), which means the output for this model is 0. The weights can always be readjusted to get a different output. 
+</p>
 
 # **Moving Forward**
+<p align="justify">
 Now that you have an idea on how the single-layer perceptron model works, we're going to create our own perceptron model using Python and train it to make predictions. We are going to train it on 100 randomly generated numbers. If the given number is even (excluding 0) it'll be labeled as a 1, otherwise labeled 0 if the given number is odd. 
+</p>
 
 # **Imports**
 The following libraries will be using for this exercise are:
@@ -132,7 +142,9 @@ class PerceptronModel():
 ~~~
 
 # **Generating Our Dataset**
+<p align="justify">
 We are going to create a method that will generate 100 random numbers for us. If a number is even (excluding 0) it's feature label will be assigned a value of 1. If a number is odd its feature label will be assigned a value of 0.
+</p>
 
 ~~~python
 def generate_dummy_data(num_samples=100):
@@ -150,7 +162,9 @@ def generate_dummy_data(num_samples=100):
 ~~~
 # **Training The Model**
 
+<p align="justify">
 This method brings all the components together. It begins by assigning the x and y variables from the dataset in use. Next, it compares the model's predictions with the actual results, and finally, calculates the model's accuracy.
+</p>
 
 ~~~python
 # Method to train the full model
@@ -199,11 +213,15 @@ plt.axis('equal')
 plt.show()
 ~~~
 
+<p align="justify">
 The following code creates a simple pie chart that illustrates the number of correct predictions versus incorrect predictions, providing a clear representation of the model's overall accuracy.
+</p>
+
 ![](https://i.imgur.com/d70zmX0.png)
 
 # Conclusion
+<p align="justify">
 The perceptron is a fundamental block in machine learning, but it has its limitations. The perceptron is mainly used for classification and linearly separable tasks only. Despite the perceptron's limitations, the perceptron has played an important role in the evolution of neural networks, paving the way for models like multi-layer perceptrons 
 and deep learning architectures. The perceptron remains as a valuable tool for understanding the basic of supervised learning and binary classification. 
-
+</p>
 
