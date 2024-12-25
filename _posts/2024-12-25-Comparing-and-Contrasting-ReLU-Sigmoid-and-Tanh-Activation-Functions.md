@@ -115,12 +115,10 @@ fig.show()
 # **Tahn (hyperbolic tangent)**
 The tahn function outputs values in the range of -1 to +1, making it more effective at handling negative values compared to the sigmoid function, which ranges from 0 to 1. This property helps in centering data around zero, which can accelerate convergence during optimization. The given formula for tahn can be defined as:  
 
-tahn(x) = (e^x - e^-x) / (e^x + e^-x)
-
-* x represents the given input
-* The numerator makes tahn(x) positive or negative depending on the input (x).
-* The denominator scales the result, ensuring the output is always within the range -1 to 1.
-</p>
+* tahn(x) = (e^x - e^-x) / (e^x + e^-x)
+  * x represents the given input
+  * The numerator makes tahn(x) positive or negative depending on the input (x).
+  * The denominator scales the result, ensuring the output is always within the range -1 to 1.
 
 **Advantages of Tahn**
 * The ⁡tanh function is zero-centered, ensuring that the gradients are more symmetrically distributed around 0. Although vanishing or exploding gradients can still occur, this symmetry helps mitigate these issues, resulting in a more stable and efficient training process compared to the sigmoid function.
