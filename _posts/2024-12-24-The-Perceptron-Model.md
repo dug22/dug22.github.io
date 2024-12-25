@@ -34,9 +34,7 @@ Please refere to the two scatter plots below:
 ![Linear vs Non-Linear](https://i.imgur.com/j47Lgw9.png)
 
 <p align="justify">
-In the example above, we are presented with two scatter plots. The first scatter plot follows a linear pattern, while the second scatter plot follows a non-linear pattern. Applying a single perceptron to the first scatter plot works because both outcomes (the green and blue dots) can be separated by a best-fitting line.
-
-However, applying a single perceptron to the second scatter plot does not work, as the outcomes are clustered in a way that no line can separate the green and blue dots.
+In the example above, we are presented with two scatter plots. The first scatter plot follows a linear pattern, while the second scatter plot follows a non-linear pattern. Applying a single perceptron to the first scatter plot works because both outcomes (the green and blue dots) can be separated by a best-fitting line. However, applying a single perceptron to the second scatter plot does not work, as the outcomes are clustered in a way that no line can separate the green and blue dots.
 </p>
 
 # **What is the Step Function**
