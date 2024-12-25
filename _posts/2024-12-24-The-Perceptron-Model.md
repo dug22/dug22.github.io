@@ -8,7 +8,7 @@ tags:
   - python
 ---
 
-In this article, we'll be going over the fundamentals of what a perceptron is and create a perceptron model from scratch using Python.
+In this article, we’ll explore the fundamentals of the perceptron and walk through the process of creating and training our own perceptron model from scratch using Python.
 
 # **Introduction**
 
@@ -37,7 +37,7 @@ Please refere to the two scatter plots below:
 In the example above, we are presented with two scatter plots. The first scatter plot follows a linear pattern, while the second scatter plot follows a non-linear pattern. Applying a single perceptron to the first scatter plot works because both outcomes (the green and blue dots) can be separated by a best-fitting line. However, applying a single perceptron to the second scatter plot does not work, as the outcomes are clustered in a way that no line can separate the green and blue dots.
 </p>
 
-# **What is the Step Function**
+# **What is the Step Function?**
 <p align="justify">
 In machine learning, a "step function" is a simple activation function used in neural networks. It outputs either 0 or 1 based on whether the input value is below or above a specified threshold or bias. After calculating the sum of the corresponding products, 
 this sum is passed through the step function to determine the outcome. If the sum exceeds the chosen threshold or bias, the outcome is classified as 1; otherwise, it is classified as 0. Let's assume our bias is 0.5 for the rest of the article.
@@ -45,7 +45,7 @@ this sum is passed through the step function to determine the outcome. If the su
 
 ![](https://i.imgur.com/FXBan6z.png)
 
-# **Single Perceptron Model put all Together**
+# **Single Perceptron in Action**
 The table below contains three input values, three corresponding weights, and their respective products.
 
 ![Table I](https://i.imgur.com/RrHiz70.png)
@@ -214,6 +214,7 @@ plt.show()
 <p align="justify">
 The following code creates a simple pie chart that illustrates the number of correct predictions versus incorrect predictions, providing a clear representation of the model's overall accuracy.
 </p>
+
 
 ![](https://i.imgur.com/d70zmX0.png)
 
