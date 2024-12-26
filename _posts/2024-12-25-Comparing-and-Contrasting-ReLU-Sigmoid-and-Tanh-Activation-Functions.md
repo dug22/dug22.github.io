@@ -163,7 +163,7 @@ By understanding the strengths and limitations of each activation function, you 
 # **References**
 * All Moez, Introduction to Activation Functions in Neural Networks. 2024 https://www.datacamp.com/tutorial/introduction-to-activation-functions-in-neural-networks
 * Antoniadis Panagiotis, Activation Functions: Sigmoid vs Tahn. 2024 https://www.baeldung.com/cs/sigmoid-vs-tanh-functions
-* Jain Vandit. Everything you need to know about “Activation Functions” in Deep learning models. 2019. https://towardsdatascience.com/everything-you-need-to-know-about-activation-functions-in-deep-learning-models-84ba9f82c253
+* Jain Vandit, Everything you need to know about “Activation Functions” in Deep learning models. 2019. https://towardsdatascience.com/everything-you-need-to-know-about-activation-functions-in-deep-learning-models-84ba9f82c253
 
 # **GitHub Repository**
 You can find the code for this exercise [Here](https://github.com/dug22/datascience-blog-exercises/tree/main/2.Comparing-and-Contrasting-ReLU-Sigmoid-and-Tanh-Activation-Functions.md)
