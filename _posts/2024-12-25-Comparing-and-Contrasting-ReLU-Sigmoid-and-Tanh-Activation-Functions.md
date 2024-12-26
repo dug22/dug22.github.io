@@ -17,7 +17,7 @@ Activation functions play a very important role in deep learning because they de
 # **What is an Activation Function?**
 
 <p align= "justify">
-An activation function is a mathematical equation that determines the output of a neuron in a neural network based on its input. Without action functions, neural networks would be limited to modeling only linear relationships between inputs and outputs. 
+An activation function is a mathematical equation that determines the output of a neuron in a neural network based on its input. Without activation functions, neural networks would be limited to modeling only linear relationships between inputs and outputs. 
 Selecting the appropriate activation function is essential for training neural networks, ensuring they generalize well and produce accurate predictions. There are a lot of activation functions to choose from, but its essential for the user to choose the right one to use 
 for a given neural network.
 </p>
@@ -163,7 +163,7 @@ By understanding the strengths and limitations of each activation function, you 
 # **References**
 * All Moez, Introduction to Activation Functions in Neural Networks. 2024 https://www.datacamp.com/tutorial/introduction-to-activation-functions-in-neural-networks
 * Antoniadis Panagiotis, Activation Functions: Sigmoid vs Tahn. 2024 https://www.baeldung.com/cs/sigmoid-vs-tanh-functions
-* Neural networks: Activation functions. https://developers.google.com/machine-learning/crash-course/neural-networks/activation-functions
+* Jain Vandit. Everything you need to know about “Activation Functions” in Deep learning models. 2019. https://towardsdatascience.com/everything-you-need-to-know-about-activation-functions-in-deep-learning-models-84ba9f82c253
 
 # **GitHub Repository**
 You can find the code for this exercise [Here](https://github.com/dug22/datascience-blog-exercises/tree/main/2.Comparing-and-Contrasting-ReLU-Sigmoid-and-Tanh-Activation-Functions.md)
