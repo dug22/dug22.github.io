@@ -16,11 +16,11 @@ minimal_mistakes_skin    : "dark"
 # Site Settings
 locale                   : "en-US"
 rtl                      : # true, false (default) # turns direction of the page into right to left for RTL languages
-title                    : "dug22's Data Science Blog"
+title                    : "dug22's Website"
 title_separator          : "-"
 subtitle                 : # site tagline that appears below site title in masthead
 name                     : "Douglas"
-description              : "Personal data science blogging website"
+description              : "Personal website for data science blogs, project documentation, etc"
 url                      :  "https://dug22.github.io"# the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : # the subpath of your site, e.g. "/blog"
 repository               : # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
