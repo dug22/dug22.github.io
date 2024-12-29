@@ -16,7 +16,7 @@ minimal_mistakes_skin    : "dark"
 # Site Settings
 locale                   : "en-US"
 rtl                      : # true, false (default) # turns direction of the page into right to left for RTL languages
-title                    : "dug22's Website"
+title                    : "dug22's Data Science Blogging Website"
 title_separator          : "-"
 subtitle                 : # site tagline that appears below site title in masthead
 name                     : "Douglas"
