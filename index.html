@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dug22's Portfolio</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f1f3f4;
+            color: #333;
+            line-height: 1.6;
+        }
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: #34495e;
+            color: #fff;
+            text-align: center;
+            padding: 50px 20px;
+            border-radius: 10px 10px 0 0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        header h1 {
+            margin: 0;
+            font-size: 3em;
+            font-weight: 600;
+        }
+        header img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 20px 0;
+            border: 4px solid #fff;
+        }
+        header p {
+            font-size: 1.2em;
+            margin-top: 10px;
+        }
+
+        .section {
+            background: #fff;
+            padding: 30px;
+            margin: 30px 0;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #34495e;
+            font-size: 2em;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 5px;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 1.1em;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .technologies-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3 columns */
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .technology-item {
+            background: #3498db;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 10px;
+            font-size: 1.1em;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        .technology-item:hover {
+            transform: scale(1.05);
+        }
+
+        .projects-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3 columns */
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .project-card {
+            background: white
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        .project-card:hover {
+            transform: scale(1.05);
+        }
+
+        footer {
+            background: #ecf0f1;
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+            border-radius: 0 0 10px 10px;
+            color: #666;
+        }
+
+        a {
+            color: #3498db;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        a:hover {
+            color: #2980b9;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 40px 20px;
+            }
+            header h1 {
+                font-size: 2.5em;
+            }
+            .container {
+                padding: 15px;
+            }
+            .technologies-grid,
+            .projects-container {
+                grid-template-columns: 1fr 1fr; /* 2 columns on small screens */
+            }
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Dug22's Portfolio</h1>
+    <img src="https://avatars.githubusercontent.com/u/190862800?v=4" alt="Dug22's Profile Picture">
+    <p>Software Engineering | Data Science</p>
+</header>
+
+<div class="container">
+    <section class="intro section">
+        <h2 align="center">About Me</h2>
+        <p align="center">As a data scientist and software engineer, I am passionate about creating data-driven
+            products. With a strong
+            background in both data science and software engineering, I have a particular interest in AI, data analysis,
+            data visualization, and database management. Here are a few technologies I am most comfortable with, and
+            have professional experience working with:</p>
+
+        <div class="technologies-grid">
+            <div class="technology-item">Python</div>
+            <div class="technology-item">Java</div>
+            <div class="technology-item">R</div>
+            <div class="technology-item">JavaScript</div>
+            <div class="technology-item">C#</div>
+            <div class="technology-item">Tableau</div>
+            <div class="technology-item">SQL</div>
+            <div class="technology-item">Jupyter Notebooks</div>
+            <div class="technology-item">Microsoft Suite</div>
+        </div>
+    </section>
+
+    <section class="section">
+        <center><h2>Projects I've Worked On</h2></center>
+        <div class="projects-container">
+            <div class="project-card">
+                <h3>Carpentry</h3>
+                <p>Carpentry is a Java-based dataframe library, analogous to shaping wood into useful objects.
+                    It offers features for data loading, exporting, cleaning, transformation, filtering, and summarization.</p>
+                <p><a href="https://github.com/dug22/carpentry">Carpentry</a></p>
+
+            </div>
+            <div class="project-card">
+                <h3>WebFisher</h3>
+                <p>Web Fisher is an AI-powered web scraping app that leverages technologies like Ollama, Playwright, and
+                    Spring AI. It extracts valuable web content and utilizes large language models to provide insightful
+                    answers to your queries.</p>
+                <p><a href="https://github.com/dug22/Web-Fisher">WebFisher GitHub Repository</a></p>
+
+            </div>
+            <div class="project-card">
+                <h3>PDF-Pinpoint</h3>
+                <p>PDF Pinpoint is a simple local chatbot using retrieval-augmented generation (RAG). It leverages large
+                    language models to process and search multiple PDF documents, helping users quickly find
+                    answers.</p>
+                <p><a href="https://github.com/dug22/PDF-Pinpoint">PDF Pinpoint GitHub Repository</a></p>
+                <p><a href="https://github.com/dug22/PDF-Pinpoint-Py">PDF Pinpoint Py GitHub Repository</a></p>
+
+            </div>
+            <div class="project-card">
+                <h3>Ollama-Adventures</h3>
+                <p>Ollama Adventures is a collection of Jupyter Notebooks that showcase the capabilities of Ollama's AI
+                    models.
+                    It provides hands-on examples of how to use the models for tasks like question answering, document
+                    summarization, and dataset analysis.</p>
+                <p><a href="https://github.com/dug22/Ollama-Adventures">Ollama Adventures GitHub Repository</a></p>
+            </div>
+            <div class="project-card">
+                <h3>LLaVA-Vision</h3>
+                <p>LLaVA Vision is a simple Spring Boot web application that allows users to upload and analyze images.
+                    These images are then processed and analyzed using LLaVA in response to the user's query or
+                    request.</p>
+                <p><a href="https://github.com/dug22/LLaVA-Vision">LLaVA-Vision</a></p>
+
+            </div>
+        </div>
+    </section>
+
+
+    <section class="section">
+        <h2 align="center">Contact</h2>
+        <p align="center">If you have any questions, suggestions, or want to collaborate on a project, feel free to
+            reach out to me! I am always open to new opportunities, discussions, and learning from others. You can
+            explore my work, get in touch with me, or check out the various repositories I’ve contributed to on GitHub.
+            I look forward to connecting!</p>
+        <p align="center"><a href="https://github.com/dug22">Visit my GitHub Profile</a></p>
+    </section>
+
+</div>
+
+<footer>
+    <p>Hosted on GitHub Pages | Last updated: March 2025</p>
+</footer>
+</body>
+</html>
