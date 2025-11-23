@@ -80,7 +80,7 @@ article a:hover {
     text-decoration: none;
 }
 
-.blog-content {
+.article-content {
     max-width: 70%;
     margin: 2rem auto;
     background: #fff;
@@ -89,13 +89,13 @@ article a:hover {
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.05);
 }
 
-.blog-content h2,
-.blog-content h3 {
+.article-content h2,
+.article-content h3 {
     text-align: center;
 
 }
 
-.blog-content p {
+.article-content p {
     margin: 1rem 0;
     text-align: justify;
 }
@@ -155,11 +155,11 @@ p code {
     width: 70%;
 }
 
-.blog-content ol li a:hover {
+.article-content ol li a:hover {
     text-decoration: none;
 }
 
-.blog-content ol a {
+.article-content ol a {
     text-decoration: none;
     color: inherit;
 }
