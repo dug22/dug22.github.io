@@ -1,0 +1,156 @@
+body  {
+font-family: Arial, sans-serif;
+margin: 0;
+padding: 0;  
+background: #f1f3f4;
+color: #333;
+line-height: 1.6;
+}
+
+header {
+background-color: #34495e;
+color: #fff;
+text-align: center;
+padding: 20px 10px;
+border-radius: 10px 10px 0 0;
+box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+
+.container { 
+display: flex; 
+justify-content: space-between; 
+max-width: 95%; 
+margin: 0 auto; 
+padding: 20px; 
+} 
+
+article {
+    background-color: #fff;
+}
+
+article h2 {
+color: #34495e;
+font-size: 2em;
+border-bottom: 3px solid #3498db;
+padding-bottom: 5px;
+margin-bottom: 20px;
+text-align: center;
+}
+
+article p { 
+font-size: 1.1em;
+line-height: 1.7;
+margin-bottom: 20px;
+text-align: justify; 
+} 
+
+main { 
+flex: 2; 
+} 
+
+article { 
+margin-bottom: 20px; 
+padding: 10px 20px; 
+border: 1px solid rgb(145, 145, 145); 
+margin-right: 10px; 
+} 
+
+aside { 
+flex: 1; 
+background-color: #c9c9c9; 
+padding: 10px; 
+} 
+
+footer { 
+background-color: #242424; 
+color: #fff; 
+text-align: center; 
+position: fixed; 
+bottom: 0; 
+width: 100%; 
+} 
+
+article a {
+    text-decoration: none;
+    color: inherit;
+}
+
+article a:hover {
+    text-decoration: none;
+}
+
+.blog-content {
+    max-width: 70%;
+    margin: 2rem auto;
+    background: #fff;
+    padding: 2rem;
+    border-radius: 6px;
+    box-shadow: 0 0 4px rgba(0,0,0,0.05);
+}
+
+.blog-content h2,
+.blog-content h3 {
+    text-align: center;
+    
+}
+
+.blog-content p {
+    margin: 1rem 0;
+    text-align: justify;
+}
+
+pre {
+    background: #1e1e1e;
+    color: #eaeaea;
+    border-radius: 6px;
+    overflow-x: auto;
+    font-size: 0.9rem;
+    white-space: pre-wrap;  
+    padding: 0.6rem 0.8rem;
+}
+
+
+code {
+    font-family: Consolas, "Courier New", monospace;
+}
+
+pre {
+    margin: 0;
+}
+
+
+p code {
+    background: #eee;
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    font-size: 0.95rem;
+}
+
+.code-block {
+    position: relative;
+    margin: 1.5rem 0;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    font-size: 0.95rem;
+}
+
+.code-block pre {
+    margin: 0 !important;
+    padding: 1rem 1rem 1rem 1rem !important;
+    background: #1e1e1e !important;
+    color: #dcdcdc;
+    overflow-x: auto;
+    white-space: pre;         
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    line-height: 1.5;
+    border-radius: 8px;
+}
+
+.perceptron-visual {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+}
