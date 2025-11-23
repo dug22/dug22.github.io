@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Understanding The Perceptron Model</title>
+<link rel="stylesheet" type="text/css" href="https://dug22.github.io/styles/blog-styles.css">
+</head>
+
+<body>
+  <header>
+    <a href="https://dug22.github.io/blog" 
+       style="
+           position:absolute;
+           top:15px;
+           left:15px;
+           font-size:2rem;
+           text-decoration:none;
+           color:white;
+       ">
+       &#8592;
+    </a>
+
+    <h1>Understanding The Perceptron Model</h1>
+    <p>Published on 11/23/2025 by dug22</p>
+    <p>Average Read Time: 3 Minutes</p>
+</header>
+
+
+
+</body>
+
+<div class="blog-content">
+    <h2>What is the Perceptron Model?</h2>
+    <p>The perceptron serves as a fundamental unit of logic in artificial neural networks. The perceptron is modified to
+        handle binary classification tasks, distinguishing between two possible outcomes (1 or 0, yes or no, etcetera).
+        While the perceptron has its limitations, its simplicity provides a strong foundation for understanding more
+        complex models. In this article I will be going over how you can build a simple Perceptron model using Python.
+        You can
+        follow along using your prefered IDE like PyCharm or VSCode. I recommend using Jupyter Notebook to follow these
+        exercises.
+    </p>
+    <br>
+    <h2>Preparing Our Dataset</h2>
+    <p>The Perceptron Model requires a dataset of corresponding inputs and weights. Inputs can be predefined as x0, x1,
+        x2, where as weights can be predefined as w0, w1, w2, each assigned a corresponding value. These weights
+        dictate the influence each input value has on the overall weighted sum. To accomplish something like this in Python
+        you can simply create a simple dictionary of inputs and weights with an array of corresponding values.
+    </p>
+    <div class="code-block">
+
+        <pre><code>data = {"Inputs": [0.6, 0.4, 0.4], "Weights": [0.4, 0.3, 0.3]}</code></pre>
+    </div>
+    <br>
+    <h2>Multiplying Inputs and Weights And Getting The Sum of Products</h2>
+    <p>Multiplying each input by its corresponding weight and then summing these products is crucial in the perceptron
+        model because this operation determing the activation value, the number that decides whether the perceptron
+        outputs a 1 or 0.
+        Each weight represents how important its input is. By multiplying and summing, the perceptron will produce a
+        single combined value that reflects all inputs and their influences. From this value is then compared to a
+        specific threshold (or passed through a given
+        activation function) to determine the final output.
+    </p>
+    <div class="code-block">
+        <pre><code>corresponding_products = [input_value * weight_value for input_value, weight_value in zip(data["Inputs"], data["Weights"])]
+print("Corresponding Products:",corresponding_products) </code></pre>
+    </div>
+    <p><b>Output</b></p>
+    <div class="code-block">
+        <pre><code>Corresponding Products: [0.24, 0.12, 0.12]</code></pre>
+    </div>
+    <p>Take the array of corresponding products and find the sum of it. In this case the sum of the coresponding
+        products is 0.48</p>
+    <div class="code-block">
+        <pre><code>sum_of_products = sum(corresponding_products)
+print("Sum of Corresponding Products:", sum_of_products)</code></pre>
+    </div>
+    <p><b>Output</b></p>
+    <div class="code-block">
+        <pre><code>Sum of Corresponding Products: 0.48
+</code></pre>
+    </div>
+    <br>
+    <h2>Applying The Activation Function</h2>
+    <p>It is very crucial to check if the sum exceeds a specific threshold also known as the bias. To evaluate whether
+        the threshold has been met, we can use an activation function called the step function. Think of the step
+        function as <b>1 if x > bias, 0 otherwise.</b>
+        Lets bring this to life by creating a function called <b>step_function</b> with the given parameters <b>weighted_sum</b>
+        and <b>bias</b>. Our bias/threshold value will be 0.5.
+    </p>
+    <div class="code-block">
+        <pre><code>def step_function(weighted_sum, bias):
+  return 1 if weighted_sum > bias else 0
+step_function_result = step_function(sum_of_products, 0.5)
+print("Step Function Result:", step_function_result)
+</code></pre>
+    </div>
+    <p><b>Output</b></p>
+    <div class="code-block">
+        <pre><code>Step Function Result: 0</code></pre>
+    </div>
+    <br>
+    <h2>Perceptron Visual</h2>
+    <p style="text-align: center;">Attached is a visual representation that illustrates how the Perceptron model works all together, connecting the all key concepts together.</p>
+    <img src="https://i.imgur.com/3oTe76e.png" class="perceptron-visual">
+    <br>
+    <h2>Sources</h2>
+    <ol>
+        <li><a href="https://youtu.be/-KLnurhX-Pg?si=su9C4y5WrNw94H8C">Perceptron Algorithm with Code Example - ML for beginners! By Python Simplified</a></li>
+        <li><a href="https://towardsdatascience.com/what-is-a-perceptron-basics-of-neural-networks-c4cfea20c590/">What is a Perceptron? – Basics of Neural Networks By Anjali Bhardwaj</a></li>
+    </ol>
+</div>
+
+
+</html>
