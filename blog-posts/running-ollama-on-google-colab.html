@@ -1,0 +1,114 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Running Ollama On Google Colab</title>
+    <link rel="stylesheet" type="text/css" href="https://dug22.github.io/styles/blog-styles.css">
+</head>
+
+<body>
+    <header>
+        <a href="https://dug22.github.io/blog" style="
+           position:absolute;
+           top:15px;
+           left:15px;
+           font-size:2rem;
+           text-decoration:none;
+           color:white;
+       ">
+            &#8592;
+        </a>
+
+        <h1>Running Ollama On Google Colab</h1>
+        <p>Published on 11/29/2025 by dug22</p>
+        <p>Average Read Time: 3 Minutes</p>
+    </header>
+</body>
+
+<div class="article-content">
+    <h2>Introduction</h2>
+    <p>In this article, I will show you how to run Ollama on Google Colab. It's simple and easy to replicate, as
+        this is quite useful if you don't feel like downloading Ollama onto your local machine for simple tasks.</p>
+    <h2>Setup Scripts</h2>
+    <p>You need to create two simple scripts. Create a file called "ollama_install.sh", and "ollama_thread.py". Copy the following
+        code into those files</p>
+    <p><strong>ollama_install.sh</strong>: this will simply create a curl request to install Ollama within your
+        notebook.</p>
+    <div class="code-block">
+        <button class="copy-btn">Copy</button>
+        <pre><code>echo "Installing Ollama on your environment"
+curl -fsSL https://ollama.com/install.sh | sh</code></pre>
+    </div>
+    <p><strong>ollama_thread.py</strong> this will keep the Ollama service alive. This is crucial as it allows you to
+        interact with the given models in realtime.</p>
+    <div class="code-block">
+        <button class="copy-btn">Copy</button>
+        <pre><code>import subprocess
+from concurrent.futures import ThreadPoolExecutor
+
+# Function to run Ollama service
+def run_ollama():
+    subprocess.Popen(["ollama", "serve"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+
+# Function to start the Ollama service in a thread
+def start_service():
+    with ThreadPoolExecutor() as executor:
+        executor.submit(run_ollama)
+
+# Start the service in parallel
+start_service()</code></pre>
+    </div>
+    <h2>Running The Setup Scripts</h2>
+    <p>Create two new code cells and run the following code to execute these scripts</p>
+    <div class="code-block">
+        <button class="copy-btn">Copy</button>
+        <pre><code>!chmod +x /content/ollama_install.sh
+!/content/ollama_install.sh</code></pre>
+    </div>
+    <div class="code-block">
+        <button class="copy-btn">Copy</button>
+        <pre><code>%run '/content/ollama_thread.py'</code></pre>
+    </div>
+
+    <h2>Installations and Imports</h2>
+    <p>Copy the following python installations and imports and paste them into your notebook.</p>
+    <div class="code-block">
+        <button class="copy-btn">Copy</button>
+        <pre><code>!ollama pull llama3.2 #pull the model of your choice (https://ollama.com/search).
+!pip install langchain-ollama
+import ollama
+from IPython.display import display, Markdown
+        </code></pre>
+    </div>
+    <h2>Interacting With Our Model</h2>
+    <p>We need to first a process question method first. This will allow us to interact with our model of choice.</p>
+    <div class="code-block">
+        <button class="copy-btn">Copy</button>
+        <pre><code>def process_question(question, model='llama3.2'):
+  messages = [
+      {
+            'role': 'user',
+            'content': f'{question}'
+        }
+  ]
+  response = ollama.chat(model=model, messages=messages)
+  return response['message']['content']</code></pre>
+    </div>
+    <p>Let's now interact with our model by asking it a very simple question.</p>
+    <div class="code-block">
+        <button class="copy-btn">Copy</button>
+        <pre><code>display(Markdown(process_question("Give me details behind the Python programming language")))</code></pre>
+    </div>
+    <p><strong>Output:</strong></p>
+    <img src="https://i.imgur.com/ck5liPU.png"
+        style="width: 100%; margin-left: auto; margin-right: auto; display: block;">
+    <p>Our model provided a comprehensive overview of what Python is.</p>
+    <h2>Conclusion</h2>
+    <p>In a few lines of code we simply accomplished getting Ollama to run on Google Colab.
+        This approach provides an easy way to work with large language models without needing specialized hardware or
+        managing your own local server.
+    </p>
+</div>
+
+</html>
