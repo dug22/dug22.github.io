@@ -1,0 +1,596 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Language Identification with Character Bigrams</title>
+    <link rel="stylesheet" type="text/css" href="https://dug22.github.io/styles/blog-styles.css">
+</head>
+
+<body>
+    <header>
+        <a href="https://dug22.github.io/blog" style="
+           position:absolute;
+           top:15px;
+           left:15px;
+           font-size:2rem;
+           text-decoration:none;
+           color:white;
+       ">
+            &#8592;
+        </a>
+
+        <h1>Identifying the Language of Text with Character Bigrams</h1>
+        <p>Published on 11/29/2025 by dug22</p>
+        <p>Average Read Time: 10 Minutes</p>
+    </header>
+</body>
+
+<div class="article-content">
+    <h2>Introduction</h2>
+    <p>
+        In the world of natural language processing, language identification is the process of determining which
+        language the given content is written in. One approach involves creating a language n-gram model from a corpus
+        of text. Models like these can be based on characters, symbols, words, etc. N-grams are simply all combinations
+        of adjacent words or characters of length n that you can find in your source text. For example, given the word
+        ice, the character bigrams (n = 2) are ic and ce. Some approaches also include word-boundary markers, but for
+        simplicity, we'll stick to character-based examples here. Our goal for this article is to develop a simple
+        language identifier that can identify the language of given text. Our dataset consists of character bigram
+        frequencies extracted from corpora of five languages: English, Spanish, German, French, and Italian.
+    </p>
+    <h2>Getting Started</h2>
+    <p>If you're using Google Colab, you can skip this section. If not, to get started make sure you have the following
+        installed on your system:
+    <ul>
+        <li>Python 3.1.0 or newer</li>
+        <li>An integrated development environment of choice (Jupyter Notebook, PyCharm, or VSCode)</li>
+        <li>Download the following libraries required for this:
+            <ul>
+                <li>pandas, numpy, matplotlib, datasets (Hugging Face), tqdm, ipython</li>
+            </ul>
+        </li>
+    </ul>
+    <h2>Imports</h2>
+    <p>Copy the following imports:</p>
+    <div class="code-block">
+        <button class="copy-btn">Copy</button>
+        <pre><code>import pandas as pd
+from datasets import load_dataset
+from collections import Counter
+import re
+from tqdm import tqdm
+import json
+import numpy as np
+import matplotlib.pyplot as plt
+from numpy._core.defchararray import count
+import math
+from IPython.display import display, Markdown</code></pre>
+    </div>
+    <h2>Text Preprocessing Methods</h2>
+    <div class="code-block">
+        <button class="copy-btn">Copy</button>
+        <pre><code>def clean_text(text):
+  return re.sub(r'[^a-zäöüßáéíóúñàâêëèïîôùûÿçìò]', '', text.lower())
+
+def extract_bigrams(text) :
+  return [text[i:i+2] for i in range(len(text) - 1)]</code></pre>
+    </div>
+    <ol>
+        <li> Our <strong>clean_text()</strong> method is used to keep text with letters a-z and other special alphabets
+            languages contain along with lowercasing it.</li>
+        <li> Our <strong>extract_bigrams()</strong> method is used to extract bigrams found within the given text.</li>
+    </ol>
+    <h2>Testing Our Text Preprocessing Methods</h2>
+    <p>
+        Lets test out our <strong>clean_text()</strong> and <strong>extract_bigrams()</strong> methods
+    </p>
+    <div class="code-block">
+        <button class="copy-btn">Copy</button>
+        <pre><code>dummy_text = "Are there any numbers or special characters within our text123?!?"
+clean_dummy_text = clean_text(dummy_text)
+dummy_bigrams = extract_bigrams(clean_dummy_text)
+display(Markdown("Original Text: " + dummy_text))
+display(Markdown("Clean Text: " + clean_dummy_text))
+display(Markdown("Bigrams: " + ",".join(dummy_bigrams[1:])))</code></pre>
+    </div>
+    <p><strong>Output:</strong></p>
+    <div class="code-block">
+        <button class="copy-btn">Copy</button>
+        <pre><code>Original Text: Are there any numbers or special characters within our text123?!?
+Clean Text: arethereanynumbersorspecialcharacterswithinourtext
+Bigrams: re,et,th,he,er,re,ea,an,ny,yn,nu,um,mb,be,er,rs,so,or,rs,sp,pe,ec,ci,ia,al,lc,ch,ha,ar,ra,ac,ct,te,er,rs,sw,wi,it,th,hi,in,no,ou,ur,rt,te,ex,xt
+</code></pre>
+    </div>
+    <h2>Visualizing Our Test Bigrams</h2>
+    <p>Let's now visualize our test bigrams using Matplotlib. This will allow us to see what bigrams are most common in
+        our text.</p>
+    <div class="code-block">
+        <button class="copy-btn">Copy</button>
+        <pre><code>bigram_counts = Counter(dummy_bigrams)
+bigram_values, bigram_counts = zip(*bigram_counts.most_common())
+plt.figure(figsize=(16,16))
+plt.barh(bigram_values, bigram_counts, color='skyblue')
+plt.gca().invert_yaxis()
+plt.title('Visualization of Extracted Bigrams')
+plt.xlabel("Frequency of Bigrams")
+plt.show()</code></pre>
+    </div>
+    <img src="https://i.imgur.com/Gn5DnOb.png"
+        style="width: 100%; margin-left: auto; margin-right: auto; display: block;">
+    <h2>Data Collection</h2>
+    <p>
+        Our goal here is to identify the following languages: English, German, Spanish, French, and Italian. To do that,
+        we need to collect the most common occurrences of bigram frequencies from a large corpus of text from English,
+        German, Spanish, French, and Italian sources. Think of this as building a profile for each language. Each
+        profile will have its own DataFrame of bigram frequencies and probabilities. The dataset we'll use for this
+        comes from AllenAI/C4, which is a colossal, cleaned version of Common Crawl's web crawl corpus. This dataset
+        contains corpora of text in multiple languages. We can easily load it using HuggingFace's dataset module. We
+        will collect 10,000 samples of corpus text and require that the length of the text is 50 or more; otherwise, we
+        can skip that sample. Out of those 10,000 samples we'll only keep the top 1,000 most common bigrams.
+    </p>
+    <p><strong>Important Constants</strong></p>
+    <div class="code-block">
+        <button class="copy-btn">Copy</button>
+        <pre><code>MAX_SAMPLES = 10000
+MIN_SAMPLE_TEXT_LENGTH = 50
+TOP_N = 1000</code></pre>
+    </div>
+
+    <p><strong>Data Collection Method</strong></p>
+    <div class="code-block">
+        <button class="copy-btn">Copy</button>
+        <pre><code>def collect_data(language):
+  dataset = load_dataset("allenai/c4", name=language, split="train", streaming=True)
+  counter = Counter()
+  total_bigrams = 0
+  processed = 0
+  for sample in tqdm(dataset, desc=f"{language} samples", unit=" samples", leave=False):
+    if processed >= MAX_SAMPLES:
+      break
+    text = clean_text(sample.get('text'))
+    if len(text) < MIN_SAMPLE_TEXT_LENGTH:
+            continue
+    bigrams = extract_bigrams(text)
+    if not bigrams:
+        continue
+    counter.update(bigrams)
+    total_bigrams += len(bigrams)
+    processed += 1
+  vocab_size = len(counter)
+  smoothed = {bigram: (count + 1) / (total_bigrams + vocab_size) for bigram,	count in counter.items()}
+  top_bigrams = sorted(smoothed.items(), key=lambda x: -x[1])[:TOP_N]
+  df = pd.DataFrame([
+      {
+          "bigram" : bigram, "frequency":counter[bigram], 'probability' : round(prob, 8)}
+          for bigram, prob in top_bigrams
+
+  ])
+  return df</code></pre>
+    </div>
+    <p><strong>Creating Our DataFrames</strong></p>
+    <div class="code-block">
+        <button class="copy-btn">Copy</button>
+        <pre><code>df_en = collect_data('en')
+print(df_en)
+df_de = collect_data('de')
+print(df_de)
+df_es = collect_data('es')
+print(df_es)
+df_fr = collect_data('fr')
+print(df_fr)
+df_it = collect_data('it')
+print(df_it)</code></pre>
+    </div>
+    <p><strong>Sample Output:</strong></p>
+    <div class="code-block">
+        <button class="copy-btn">Copy</button>
+        <pre><code>    bigram  frequency   probability
+0       th     411664  2.417233e-02
+1       in     340419  1.998893e-02
+2       he     321331  1.886811e-02
+3       er     283262  1.663276e-02
+4       an     275088  1.615280e-02
+..     ...        ...           ...
+995     yí          2  1.800000e-07
+996     ób          2  1.800000e-07
+997     äi          2  1.800000e-07
+998     iß          2  1.800000e-07
+999     ßh          2  1.800000e-07
+
+[1000 rows x 3 columns]
+....
+</code></pre>
+    </div>
+    <h2>Data Transformation</h2>
+    <p>We are taking each bigrams' probability and converting them into log probabilities, which involves calculating
+        the natural logarithm of a given probability. By definition a log probabilitiy is simply a logarithm of a
+        probability, and it is used a lot in probability theory and computer science. The following reasons as to why we
+        are converting our probabilities to log probabilities is because of the following:</p>
+
+    <ol>
+        <li>Probabilities range from 0–1 while log probabilities range from −∞–0.</li>
+        <li>The use of log probabilities improves numerical stabability, when the probabilities are very small.</li>
+        <li>Log probability simplifies speed by transforming multiplications into additions.
+            <ul>
+                <li>log(p<sub>1</sub>* p<sub>2</sub>) = log(p<sub>1</sub>) + log(p<sub>2</sub>)</li>
+            </ul>
+        </li>
+        <li>
+            Log probability is commonly used when working with likelihoods.
+        </li>
+    </ol>
+    <p>To transform our probabilties to log probabilities we do the following:</p>
+    <div class="code-block">
+        <button class="copy-btn">Copy</button>
+        <pre><code>def apply_log_probability_dict(df):
+  df['log_probability'] = np.log(df['probability'])
+  return df.set_index('bigram')['log_probability'].to_dict()</code></pre>
+    </div>
+    <p>Applying the log transformation to our dataframes would look like this:</p>
+    <div class="code-block">
+        <pre><code>logprob_en = apply_log_probability_dict(df_en)
+logprob_de = apply_log_probability_dict(df_de)
+logprob_es = apply_log_probability_dict(df_es)
+logprob_fr = apply_log_probability_dict(df_fr)
+logprob_it = apply_log_probability_dict(df_it)</code></pre>
+    </div>
+
+    <h2>Summing Our Log Probabilities</h2>
+    <p>
+        We will sum the log probabilities of all the bigrams, and get the total score for each language. The result will
+        always be a
+        negative number. Remember log probabilities range from −∞–0.
+    </p>
+    <div class="code-block">
+        <button class="copy-btn">Copy</button>
+        <pre><code>def score_sentence(text, logprob_dict):
+    bigrams = get_bigrams(clean_text(text))
+    return sum(logprob_dict.get(bigram) for bigram in bigrams)</code></pre>
+    </div>
+    <p>Here is an example of what our output would look like:</p>
+    <div class="code-block">
+        <button class="copy-btn">Copy</button>
+        <pre><code>en:-143.76 | de:-145.18 | es:-121.76 | fr:-147.98 | it:-151.8</code></pre>
+    </div>
+    <h2>Applying the Softmax Formula for Confidence</h2>
+    <p>
+        The softmax function is used to express how confidently the system believes the sentence belongs to the
+        predicted language. After retrieving the summed scores, softmax transforms these scores into a
+        probability distribution that adds up to 1. This allows us to compare the languages on an equal scale and
+        determine
+        how strongly the highest-scoring language stands out from the rest. A higher softmax value means the model is
+        more certain in its prediction, while lower values indicate closer competition among languages. We're only
+        retrieving
+        the winning confidence score.
+    </p>
+
+    <div class="code-block">
+        <button class="copy-btn">Copy</button>
+        <pre><code>def detect_language(sentence):
+    scores = {
+        'en': score_sentence(sentence, logprob_en),
+        'de': score_sentence(sentence, logprob_de),
+        'es': score_sentence(sentence, logprob_es),
+        'fr' : score_sentence(sentence, logprob_fr),
+        'it' : score_sentence(sentence, logprob_it)
+    }
+    winner = max(scores, key=scores.get)
+
+
+    exp_scores = {k: np.exp(v - max(scores.values())) for k, v in scores.items()}
+    total = sum(exp_scores.values())
+    confidence = exp_scores[winner] / total
+
+    return {
+        'language': winner,
+        'confidence': confidence,
+        'scores': {k: round(v, 2) for k, v in scores.items()}
+    }</code></pre>
+    </div>
+    <p style="text-align: center;">
+        This code may seem like a lot but I will explain what we're doing and how the softmax function is being applied
+        step by step.
+    </p>
+
+    <h3>Listing Our Scores</h3>
+    <p style="text-align: center;">
+        The formula is pretty simple to understand. Let's assume these are our given scores for the following
+        phrase: "Buenos días y buenas noches." were:<br>
+    </p>
+    <div class="sample-table">
+        <table border="1" class="dataframe">
+            <thead>
+                <tr style="text-align: right;">
+                    <th>language code</th>
+                    <th>score</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>en</td>
+                    <td>-143.76</td>
+                </tr>
+                <tr>
+                    <td>de</td>
+                    <td>-145.18</td>
+                </tr>
+                <tr>
+                    <td>es</td>
+                    <td>-121.76
+                </tr>
+                </tr>
+                <tr>
+                    <td>fr</td>
+                    <td>-147.98
+                </tr>
+                <tr>
+                    <td>it</td>
+                    <td>-151.8</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <h3>Identifying The Max Score</h3>
+    <p style="text-align: center;">We first need to identify the max score / our winner. In this case it's
+        <strong>es</strong> with a score of -121.76
+    </p>
+    <h3>Shifting Our Scores</h3>
+    <p style="text-align: center;">Subtract the maximum score from each score to stabilize the exponential step. The
+        formula for this step is literally shifted score = (z-max)</p>
+    <div class="sample-table">
+        <table border="1" class="dataframe">
+            <thead>
+                <tr style="text-align: right;">
+                    <th>language code</th>
+                    <th>Shifted Score (z-max)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>en</td>
+                    <td>-22.00</td>
+                </tr>
+                <tr>
+                    <td>de</td>
+                    <td>-23.42</td>
+                </tr>
+                <tr>
+                    <td>es</td>
+                    <td>0.00</td>
+                </tr>
+                </tr>
+                <tr>
+                    <td>fr</td>
+                    <td>-7.80</td>
+                </tr>
+                <tr>
+                    <td>it</td>
+                    <td>-11.62</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <h3>Exponetiate Shifted Scores</h3>
+    <p style="text-align: center;">Next apply <strong>np.exp()</strong> to each shifted value. Remember Euler's number
+        <strong>(e)</strong> is
+        the specific mathematical constant used as the base for the <strong>np.exp()</strong> function. Example e^-22,
+        e^-23.43, etc.
+    </p>
+    <div class="sample-table">
+        <table border="1" class="dataframe">
+            <thead>
+                <tr style="text-align: right;">
+                    <th>language code</th>
+                    <th>exp(shifted score)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>en</td>
+                    <td>2.789468e-10</td>
+                </tr>
+                <tr>
+                    <td>de</td>
+                    <td>6.742535e-11</td>
+                </tr>
+                <tr>
+                    <td>es</td>
+                    <td>1.000000e+00</td>
+                </tr>
+                </tr>
+                <tr>
+                    <td>fr</td>
+                    <td>4.097350e-04</td>
+                </tr>
+                <tr>
+                    <td>it</td>
+                    <td>8.984587e-06</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <h3>Summing The Exponentials</h3>
+    <p style="text-align: center;">Next we sum the exponentials which comes out to be 1.0004e+00</p>
+    <h3>Softmax Probabilities</h3>
+    <p style="text-align: center;">Finally, divide the exponentials by the sum to get your final set of probabilties</p>
+    <div class="sample-table">
+        <table border="1" class="dataframe">
+            <thead>
+                <tr style="text-align: right;">
+                    <th>language code</th>
+                    <th>Softmax Probability</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>en</td>
+                    <td>2.788301e-10</td>
+                </tr>
+                <tr>
+                    <td>de</td>
+                    <td>6.739713e-11</td>
+                </tr>
+                <tr>
+                    <td>es</td>
+                    <td>9.995815e-01</td>
+                </tr>
+                </tr>
+                <tr>
+                    <td>fr</td>
+                    <td>4.097350e-04</td>
+                </tr>
+                <tr>
+                    <td>it</td>
+                    <td>8.984587e-06</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <p>Our system has an overall confidence of 0.9995844287888059 that the phrase "Buenos días y buenas noches." was
+        written in Spanish. Other languages such as English, German, French, and Italian have confidence levels of 0.
+    </p>
+
+    <h2>Putting Our Model to the Test</h2>
+    <p>Let us put our model to the test, by passing in an array of sentences and see what our scores and confidence
+        value turns out to be. Our test data will contain sentences that were written in English, German, Spanish,
+        French, & Italian.</p>
+    <div class="code-block">
+        <button class="copy-btn">Copy</button>
+        <pre><code>def get_results(test_sentences):
+  for sentence in test_sentences:
+    result = detect_language(sentence)
+    display(Markdown(f"[{result['language'].upper()}] {sentence}"))
+    display(Markdown(f" → en:{result['scores']['en']} | de:{result['scores']['de']} | es:{result['scores']['es']} | fr:{result['scores']['fr']} | it:{result['scores']['it']} | confidence: {result['confidence']}"))
+
+test_sentences = [
+    "This is a test sentence in English",
+    "Das ist ein Test in Deutsch.",
+    "Esta es una oración de prueba en español.",
+    "The quick brown fox jumps over the lazy dog.",
+    "Straße und Fuß sind deutsche Wörter.",
+    "Niño y mañana son palabras españolas.",
+    "Hello world from Python!",
+    "Guten Morgen und auf Wiedersehen!",
+    "Buenos días y buenas noches.",
+    "Ceci est une phrase de test en français.",
+    "Mi piace passeggiare in centro città durante il weekend.",
+    "Le soleil brillant se couchait derrière l'horizon lointain, répandant une lumière dorée sur les collines ondulantes.",
+    "Il sole arancione brillante tramontava dietro l'orizzonte distante, diffondendo una calda luce dorata sulle colline ondulate e sul fiume sereno sottostante."
+]
+
+get_results(test_sentences=test_sentences)</code></pre>
+    </div>
+    <p><strong>Output:</strong></p>
+
+
+    <div class="code-block">
+        <button class="copy-btn">Copy</button>
+        <pre><code>[EN] This is a test sentence in English
+
+→ en:-132.53 | de:-135.82 | es:-144.91 | fr:-138.08 | it:-140.45 | confidence: 0.9600376730030188
+
+[DE] Das ist ein Test in Deutsch.
+
+→ en:-104.14 | de:-98.17 | es:-108.49 | fr:-103.52 | it:-105.75 | confidence: 0.9922230796798067
+
+[ES] Esta es una oración de prueba en español.
+
+→ en:-212.92 | de:-209.85 | es:-165.64 | fr:-202.2 | it:-198.0 | confidence: 0.9999999999999909
+
+[EN] The quick brown fox jumps over the lazy dog.
+
+→ en:-219.93 | de:-236.21 | es:-232.47 | fr:-232.53 | it:-234.28 | confidence: 0.9999923288958297
+
+[FR] Straße und Fuß sind deutsche Wörter.
+
+→ en:-196.12 | de:-169.44 | es:-161.88 | fr:-141.32 | it:-159.87 | confidence: 0.9999999900816506
+
+[ES] Niño y mañana son palabras españolas.
+
+→ en:-211.75 | de:-213.9 | es:-165.36 | fr:-195.45 | it:-206.73 | confidence: 0.999999999999915
+
+[EN] Hello world from Python!
+
+→ en:-107.55 | de:-122.95 | es:-124.29 | fr:-124.13 | it:-125.19 | confidence: 0.99999965791378
+
+[DE] Guten Morgen und auf Wiedersehen!
+
+→ en:-153.42 | de:-137.59 | es:-157.76 | fr:-155.75 | it:-159.64 | confidence: 0.9999998520959484
+
+[ES] Buenos días y buenas noches.
+
+→ en:-143.76 | de:-145.18 | es:-121.76 | fr:-129.56 | it:-133.38 | confidence: 0.9995844287888059
+
+[FR] Ceci est une phrase de test en français.
+
+→ en:-180.06 | de:-179.2 | es:-175.82 | fr:-163.96 | it:-178.69 | confidence: 0.9999921703433644
+
+[IT] Mi piace passeggiare in centro città durante il weekend.
+
+→ en:-274.66 | de:-277.27 | es:-278.2 | fr:-265.75 | it:-253.46 | confidence: 0.9999954216283861
+
+[FR] Le soleil brillant se couchait derrière l'horizon lointain, répandant une lumière dorée sur les collines ondulantes.
+
+→ en:-583.35 | de:-581.77 | es:-563.21 | fr:-514.41 | it:-548.31 | confidence: 0.999999999999998
+
+[IT] Il sole arancione brillante tramontava dietro l'orizzonte distante, diffondendo una calda luce dorata sulle colline ondulate e sul fiume sereno sottostante.
+
+→ en:-699.51 | de:-737.65 | es:-691.31 | fr:-700.46 | it:-668.71 | confidence: 0.9999999998463776</code></pre>
+    </div>
+    <h3>Visualizing Our Bigram Log Probabilties Across Languages</h3>
+    <p>Lets visualize our log probability scores across the board with a given test sentence. Our test sentence will be:
+        "The quick brown fox jumps over the lazy dog."</p>
+    <div class="code-block">
+        <button class="copy-btn">Copy</button>
+        <pre><code>import matplotlib.pyplot as plt
+user_input = input("Type a sentence in English, German, Spanish, French, or Italian: ")
+
+bigrams = get_bigrams(clean_text(user_input))
+x = list(range(len(bigrams)))
+logs_en = [logprob_en.get(bg, 0) for bg in bigrams]
+logs_de = [logprob_de.get(bg, 0) for bg in bigrams]
+logs_es = [logprob_es.get(bg, 0) for bg in bigrams]
+logs_fr = [logprob_fr.get(bg, 0) for bg in bigrams]
+logs_it = [logprob_it.get(bg, 0) for bg in bigrams]
+plt.figure(figsize=(12, 5))
+plt.plot(x, logs_en, marker='o', label="English (EN)")
+plt.plot(x, logs_de, marker='o', label="German (DE)")
+plt.plot(x, logs_es, marker='o', label="Spanish (ES)")
+plt.plot(x, logs_fr, marker='o', label="French (FR)")
+plt.plot(x, logs_it, marker='o', label="Italian (IT)")
+plt.xticks(x, bigrams, rotation=45)
+plt.xlabel("Bigrams")
+plt.ylabel("Log Probability")
+plt.title(f"Bigram Log-Probabilities Across Languages\n\"{user_input}\"")
+plt.grid(False)
+plt.legend()
+plt.tight_layout()
+plt.show()
+get_results(test_sentences=[user_input])
+</code></pre>
+    </div>
+    <img src="https://i.imgur.com/YmeFjF4.png"
+        style="width: 100%; margin-left: auto; margin-right: auto; display: block;">
+
+    <h3>Conclusion</h3>
+    <p>It is possible to identify the language of text by simply comparing the probability of common bigrams to a
+        dataset of known bigram probabilities for different languages, along with implementing a scoring system as
+        simple as summing the given probabilities. Each language had a unique statistical profile of common, uncommon,
+        and rare bigrams. By leveraging these methods, we were able to successfully identify the language of long
+        sentences, and paragraphs.
+    </p>
+    <h3>Sources</h3>
+    <ol>
+        <li><a href="https://web.stanford.edu/~jurafsky/slp3/3.pdf">Speech and Language Processing. By Daniel Jurafsky &
+                James H. Martin.</a></li>
+        <li><a href="https://www.youtube.com/watch?v=pqKT7pIBWgY">What Is Log Probability? By The Friendly Statistician</a></li>
+        <li><a href="https://huggingface.co/datasets/allenai/c4">C4 Dataset By AllenAI</a></li>
+        <li><a href="https://norvig.com/mayzner.html">English Letter Frequency Counts: Mayzner Revisited or ETAOIN
+                SRHLDCU</a></li>
+        <li><a href="https://www.geeksforgeeks.org/python/python-bigrams-frequency-in-string/">Python - Bigrams
+                Frequency in String By GeeksForGeeks</a></li>
+        </ol>
+</div>
+
+</html>
